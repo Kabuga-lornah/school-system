@@ -1,34 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Routes, Route, Outlet } from 'react-router-dom'
+import './App.css' // This one file will hold all our component styles
+import Navbar from './components/Navbar' // Import new Navbar
+import Dashboard from './pages/Dashboard'
+import Courses from './pages/Courses'
+import Assignments from './pages/Assignments'
+import Resources from './pages/Resources'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <Routes>
+      {/* This <AppLayout /> is our main template */}
+      <Route path="/" element={<AppLayout />}>
+        <Route index element={<Dashboard />} />
+        <Route path="courses" element={<Courses />} />
+        <Route path="assignments" element={<Assignments />} />
+        <Route path="resources" element={<Resources />} />
+      </Route>
+    </Routes>
+  )
+}
+
+// This component now defines the layout with the Navbar on top
+function AppLayout() {
+  return (
+    <div className="app-layout-navbar">
+      <Navbar /> {/* Use Navbar instead of Sidebar */}
+      <main className="main-content">
+        {/* Pages will be rendered here */}
+        <Outlet />
+      </main>
+    </div>
   )
 }
 

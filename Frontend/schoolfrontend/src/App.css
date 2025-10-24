@@ -1,42 +1,187 @@
+/* --- Global App Layout --- */
 #root {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.app-layout-navbar {
+  display: flex;
+  flex-direction: column; /* Stack navbar on top of content */
+  min-height: 100vh;
+  background-color: #242424;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 2.5rem;
+  /* Max-width and margin auto will center the content container */
+  max-width: 1280px; 
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Page header styles */
+.main-content h2 {
+  font-size: 2.2rem;
+  border-bottom: 2px solid #646cff;
+  padding-bottom: 0.5rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #fff;
+}
+
+/* --- Navbar Styles (Merged) --- */
+.navbar {
+  background: #1a1a1a;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0 2rem; /* Horizontal padding */
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px; /* Navbar height */
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100%;
+  padding: 0 0.5rem; /* Padding for when content is centered */
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.navbar-brand {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #646cff;
+  text-decoration: none;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.navbar-nav {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 0.5rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.nav-link {
+  display: block;
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  position: relative;
 }
 
-.card {
-  padding: 2em;
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
 }
 
-.read-the-docs {
+.nav-link.active {
+  color: #747bff;
+  background: rgba(99, 109, 255, 0.1);
+}
+
+.navbar-profile {
+  font-size: 0.9em;
   color: #888;
+}
+
+/* --- Dashboard Page Styles (Merged) --- */
+.dashboard-hero {
+  background: linear-gradient(135deg, #646cff 0%, #3f3fff 100%);
+  color: #fff;
+  padding: 3rem 2.5rem;
+  border-radius: 12px;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 10px 30px -10px rgba(99, 109, 255, 0.4);
+}
+
+.dashboard-hero h2 {
+  font-size: 2.8rem;
+  margin: 0;
+  border: none;
+  padding: 0;
+  color: #fff;
+}
+
+.dashboard-hero .subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  margin: 0.5rem 0 0 0;
+}
+
+.programs-section h3 {
+  font-size: 1.8rem;
+  color: #fff;
+  margin-bottom: 1.5rem;
+}
+
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.course-info-card {
+  /* Uses the .card style from index.css */
+  display: flex;
+  flex-direction: column;
+  border: none;
+  border-top: 4px solid #646cff; /* Accent color */
+}
+
+.course-info-card .course-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  background-color: rgba(99, 109, 255, 0.1);
+  width: 60px;
+  height: 60px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+}
+
+.course-info-card h4 {
+  font-size: 1.3rem;
+  color: #fff;
+  margin: 0 0 0.5rem 0;
+}
+
+.course-info-card p {
+  color: rgba(255, 255, 255, 0.8);
+  flex-grow: 1; /* Makes all cards the same height */
+  margin-bottom: 1.5rem;
+}
+
+.info-section .card {
+  background: rgba(40, 40, 40, 0.4);
+}
+
+/* --- Responsive Styles --- */
+@media (max-width: 768px) {
+  .navbar-nav {
+    /* On mobile, we'd hide this and show a hamburger menu */
+    /* For now, we'll just hide it to keep it simple */
+    display: none; 
+  }
+
+  .main-content {
+    padding: 1.5rem;
+  }
+  
+  .dashboard-hero h2 {
+    font-size: 2rem;
+  }
 }

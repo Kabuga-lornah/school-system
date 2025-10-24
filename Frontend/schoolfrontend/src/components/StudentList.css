@@ -1,0 +1,85 @@
+.student-list-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* 2/3 for list, 1/3 for details */
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+/* --- Grid of Student Cards --- */
+.student-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.student-card {
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border-left: 5px solid #646cff; /* Accent border */
+}
+
+.student-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.4);
+  border-color: #747bff;
+}
+
+.student-card.selected {
+  transform: translateY(-2px);
+  background: rgba(99, 109, 255, 0.2);
+  border-color: #747bff;
+  box-shadow: 0 0 0 2px #747bff, 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.student-card h3 {
+  margin: 0 0 0.5rem 0;
+  color: #fff;
+}
+
+.student-card p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9em;
+}
+
+/* --- Details Panel --- */
+.student-details {
+  position: sticky;
+  top: 120px; /* (Header height + padding) */
+  animation: fadeIn 0.5s ease;
+}
+
+.student-details h3 {
+  margin-top: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 0.5rem;
+}
+
+.student-details p {
+  font-size: 1.1em;
+  line-height: 1.7;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive layout for smaller screens */
+@media (max-width: 900px) {
+  .student-list-container {
+    grid-template-columns: 1fr; /* Stack list and details */
+  }
+
+  .student-details {
+    position: static;
+    top: auto;
+    margin-top: 2rem;
+  }
+}
