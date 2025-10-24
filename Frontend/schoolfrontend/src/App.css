@@ -1,187 +1,1202 @@
-/* --- Global App Layout --- */
-#root {
-  max-width: 100%;
+/* ---
+   0. Global Setup & CSS Variables
+--- */
+:root {
+  --primary-orange: #FF7A1A;
+  --primary-orange-dark: #E66E18;
+  --dark-text: #333333;
+  --body-text: #555555;
+  --light-bg: #F4F6F8;
+  --white: #FFFFFF;
+  --border-light: #E0E0E0;
+  --orange-light-bg: #FFFBF8;
+}
+
+html {
+  scroll-behavior: smooth; /* For smooth scrolling to anchors like /#courses */
+}
+
+body {
   margin: 0;
-  padding: 0;
-  text-align: left;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: var(--dark-text);
+  background-color: var(--white);
+  line-height: 1.6;
 }
 
-.app-layout-navbar {
-  display: flex;
-  flex-direction: column; /* Stack navbar on top of content */
-  min-height: 100vh;
-  background-color: #242424;
+.card {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 2rem;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease-in-out;
 }
 
-.main-content {
-  flex-grow: 1;
-  padding: 2.5rem;
-  /* Max-width and margin auto will center the content container */
-  max-width: 1280px; 
-  width: 100%;
+.section-container {
+  max-width: 1280px;
   margin: 0 auto;
-  box-sizing: border-box;
+  padding: 0 2rem;
 }
 
-/* Page header styles */
-.main-content h2 {
-  font-size: 2.2rem;
-  border-bottom: 2px solid #646cff;
-  padding-bottom: 0.5rem;
-  margin-top: 0;
-  margin-bottom: 1.5rem;
-  color: #fff;
+.section-title {
+  font-size: 2.5rem;
+  color: var(--dark-text);
+  text-align: center;
+  margin-bottom: 2.5rem;
 }
 
-/* --- Navbar Styles (Merged) --- */
-.navbar {
-  background: #1a1a1a;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 0 2rem; /* Horizontal padding */
+/* ---
+   1. STYLES FOR PUBLIC SITE
+--- */
+
+/* --- Public Navbar --- */
+.public-navbar {
+  background: var(--white);
+  border-bottom: 1px solid var(--border-light);
+  padding: 0 2rem;
   position: sticky;
   top: 0;
   z-index: 100;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
-
-.navbar-container {
+.public-navbar-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  height: 70px; /* Navbar height */
   max-width: 1280px;
   margin: 0 auto;
-  width: 100%;
-  padding: 0 0.5rem; /* Padding for when content is centered */
+  height: 70px;
 }
-
-.navbar-brand {
+.public-navbar-brand {
   font-size: 1.75rem;
   font-weight: 700;
-  color: #646cff;
+  color: var(--primary-orange);
   text-decoration: none;
+  margin-right: 2.5rem;
 }
-
-.navbar-nav {
+.public-navbar-nav {
   display: flex;
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: 0.5rem;
+  gap: 2rem;
 }
-
-.nav-link {
-  display: block;
-  padding: 0.75rem 1rem;
+.public-navbar-nav a {
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--body-text);
   font-weight: 500;
-  border-radius: 6px;
-  transition: all 0.2s ease;
+  transition: color 0.2s;
   position: relative;
+  padding-bottom: 4px;
+}
+.public-navbar-nav a:hover {
+  color: var(--primary-orange);
+}
+.public-navbar-nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-orange);
+  transition: width 0.3s ease;
+}
+.public-navbar-nav a:hover::after,
+.public-navbar-nav a.active::after {
+  width: 100%;
 }
 
-.nav-link:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: #fff;
+.public-navbar-auth {
+  margin-left: auto;
+}
+.nav-button.login {
+  background-color: transparent;
+  color: var(--primary-orange);
+  border: 2px solid var(--primary-orange);
+  padding: 0.5rem 1.2rem;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+.nav-button.login:hover {
+  background-color: var(--primary-orange);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 122, 26, 0.3);
 }
 
-.nav-link.active {
-  color: #747bff;
-  background: rgba(99, 109, 255, 0.1);
+/* --- Public Hero Section (LandingPage) --- */
+.hero-section {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 6rem 2rem 8rem 2rem;
+  background: linear-gradient(135deg, var(--orange-light-bg) 0%, #fff 100%);
+}
+.hero-title {
+  font-size: 3.8rem;
+  font-weight: 800;
+  margin: 0 0 1rem 0;
+  color: var(--dark-text);
+  line-height: 1.2;
+}
+.hero-subtitle {
+  font-size: 1.25rem;
+  color: var(--body-text);
+  max-width: 600px;
+  margin: 0 auto 2.5rem auto;
+}
+.hero-cta-button {
+  background: var(--primary-orange);
+  color: var(--white);
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(255, 122, 26, 0.3);
+}
+.hero-cta-button:hover {
+  background: var(--primary-orange-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(255, 122, 26, 0.4);
 }
 
-.navbar-profile {
-  font-size: 0.9em;
-  color: #888;
+/* --- "Why Choose Us" Section (LandingPage) --- */
+.why-us-section {
+  padding: 5rem 0;
+  background-color: var(--white);
+}
+.why-us-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  text-align: center;
+}
+.feature-item .feature-icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+.feature-item h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
-/* --- Dashboard Page Styles (Merged) --- */
-.dashboard-hero {
-  background: linear-gradient(135deg, #646cff 0%, #3f3fff 100%);
-  color: #fff;
-  padding: 3rem 2.5rem;
-  border-radius: 12px;
-  margin-bottom: 2.5rem;
-  box-shadow: 0 10px 30px -10px rgba(99, 109, 255, 0.4);
+/* --- Courses Section (LandingPage) --- */
+.courses-section {
+  padding: 5rem 0;
+  background-color: var(--light-bg);
 }
-
-.dashboard-hero h2 {
-  font-size: 2.8rem;
-  margin: 0;
-  border: none;
-  padding: 0;
-  color: #fff;
-}
-
-.dashboard-hero .subtitle {
-  font-size: 1.2rem;
-  opacity: 0.9;
-  margin: 0.5rem 0 0 0;
-}
-
-.programs-section h3 {
-  font-size: 1.8rem;
-  color: #fff;
-  margin-bottom: 1.5rem;
-}
-
 .course-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
 }
-
 .course-info-card {
-  /* Uses the .card style from index.css */
   display: flex;
   flex-direction: column;
-  border: none;
-  border-top: 4px solid #646cff; /* Accent color */
+  border-top: 5px solid var(--primary-orange);
 }
-
-.course-info-card .course-icon {
+.course-info-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+.course-icon {
   font-size: 2.5rem;
   margin-bottom: 1rem;
-  background-color: rgba(99, 109, 255, 0.1);
+  background-color: var(--orange-light-bg);
   width: 60px;
   height: 60px;
   display: grid;
   place-items: center;
   border-radius: 50%;
+  color: var(--primary-orange);
 }
-
 .course-info-card h4 {
-  font-size: 1.3rem;
-  color: #fff;
+  font-size: 1.4rem;
+  color: var(--dark-text);
   margin: 0 0 0.5rem 0;
 }
-
 .course-info-card p {
-  color: rgba(255, 255, 255, 0.8);
-  flex-grow: 1; /* Makes all cards the same height */
+  color: var(--body-text);
+  flex-grow: 1;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+.course-price {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--primary-orange);
+  margin-top: auto;
+}
+
+/* --- Generic Page Container (About, Contact) --- */
+.page-container {
+  padding: 2.5rem;
+  max-width: 1100px;
+  width: 100%;
+  margin: 2rem auto;
+  box-sizing: border-box;
+}
+
+/* --- About Page --- */
+.about-hero {
+  padding: 5rem 2rem;
+  text-align: center;
+  background: var(--primary-orange);
+  color: var(--white);
+  border-radius: 12px;
+  margin-bottom: 3rem;
+}
+.about-hero h1 {
+  font-size: 3rem;
+  margin: 0;
+}
+.about-content {
+  max-width: 900px;
+  margin: 0 auto 3rem auto;
+}
+.about-content h2 {
+  font-size: 2.2rem;
+}
+.about-content p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+.image-placeholder-container {
+  width: 100%;
+  margin-top: 2rem;
+}
+.image-placeholder {
+  width: 100%;
+  height: 400px;
+  background: var(--border-light);
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  color: var(--body-text);
+  font-style: italic;
+  font-size: 1.2rem;
+}
+.team-section {
+  text-align: center;
+  background: var(--light-bg);
+  padding: 4rem 2rem;
+  border-radius: 12px;
+}
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.team-member-card {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+.team-image-placeholder {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: var(--border-light);
+  margin: 0 auto 1rem auto;
+}
+.team-member-card h3 {
+  margin-bottom: 0.25rem;
+}
+.team-member-card p {
+  color: var(--primary-orange);
+  font-weight: 600;
+  margin: 0;
+}
+
+/* --- Contact Page --- */
+.contact-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  align-items: flex-start;
+}
+.contact-form-container {
+  padding: 2.5rem;
+}
+.contact-info-container {
+  padding: 1.5rem;
+}
+.contact-info-item {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.contact-icon {
+  font-size: 2rem;
+  color: var(--primary-orange);
+}
+.contact-info-item strong {
+  font-size: 1.1rem;
+}
+.contact-info-item p {
+  margin: 0;
+  color: var(--body-text);
+}
+.map-placeholder {
+  width: 100%;
+  height: 250px;
+  background: var(--border-light);
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  color: var(--body-text);
+  font-style: italic;
+  margin-top: 2rem;
+}
+
+/* --- Auth Pages (Login, SignUp) --- */
+.auth-page-container {
+  display: grid;
+  place-items: center;
+  padding: 5rem 2rem;
+  background-color: var(--light-bg);
+}
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+}
+.auth-card h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: var(--dark-text);
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+.form-group {
   margin-bottom: 1.5rem;
 }
-
-.info-section .card {
-  background: rgba(40, 40, 40, 0.4);
+.form-group label {
+  display: block;
+  font-weight: 600;
+  color: var(--body-text);
+  margin-bottom: 0.5rem;
+}
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-light);
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-orange);
+  box-shadow: 0 0 0 3px rgba(255, 122, 26, 0.2);
+}
+.auth-button {
+  width: 100%;
+  padding: 0.9rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  background: var(--primary-orange);
+  color: var(--white);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.auth-button:hover {
+  background: var(--primary-orange-dark);
+  box-shadow: 0 4px 12px rgba(255, 122, 26, 0.3);
+}
+.auth-toggle-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: var(--body-text);
+}
+.auth-toggle-link a {
+  color: var(--primary-orange);
+  font-weight: 600;
+  text-decoration: none;
+}
+.auth-toggle-link a:hover {
+  text-decoration: underline;
 }
 
-/* --- Responsive Styles --- */
-@media (max-width: 768px) {
-  .navbar-nav {
-    /* On mobile, we'd hide this and show a hamburger menu */
-    /* For now, we'll just hide it to keep it simple */
-    display: none; 
-  }
+/* --- Public Footer --- */
+.landing-footer {
+  text-align: center;
+  padding: 3rem 2rem;
+  background-color: var(--dark-text);
+  color: #AAA;
+  margin-top: auto;
+}
 
-  .main-content {
-    padding: 1.5rem;
+/* ---
+   2. STYLES FOR STUDENT DASHBOARD (prefixed with .student-)
+   (These are mostly unchanged, just adapted to new colors)
+--- */
+.student-layout-navbar {
+  background-color: var(--light-bg);
+  min-height: 100vh;
+}
+.student-main-content {
+  padding: 2.5rem;
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+.student-main-content h2 {
+  font-size: 2.2rem;
+  border-bottom: 2px solid var(--primary-orange);
+  padding-bottom: 0.5rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: var(--dark-text);
+}
+/* ... (Other student styles for dashboard, etc. would go here) ... */
+
+
+/* ---
+   3. RESPONSIVENESS
+--- */
+
+@media (max-width: 900px) {
+  .why-us-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
   }
-  
-  .dashboard-hero h2 {
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+  .team-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .public-navbar-nav {
+    display: none; /* Simplification for now. A real site needs a hamburger menu. */
+  }
+  .hero-title {
+    font-size: 2.8rem;
+  }
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+  .section-title {
     font-size: 2rem;
+  }
+}
+
+/* ---
+   4. NEW STYLES FOR COURSE PAGES
+--- */
+
+/* --- Landing Page Featured Courses --- */
+.featured-grid {
+  /* This grid will show 4 columns on desktop */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+@media (min-width: 1200px) {
+  .featured-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.course-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.all-courses-link-container {
+  text-align: center;
+  margin-top: 2rem;
+}
+.all-courses-button {
+  background: var(--light-bg);
+  color: var(--primary-orange);
+  border: 2px solid var(--primary-orange);
+  box-shadow: none;
+}
+.all-courses-button:hover {
+  background: var(--primary-orange);
+  color: var(--white);
+  box-shadow: 0 8px 20px rgba(255, 122, 26, 0.3);
+}
+
+/* --- All Courses Page --- */
+.all-courses-page .course-grid {
+  /* This grid will show 3 columns on desktop */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+@media (min-width: 1024px) {
+  .all-courses-page .course-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* --- Course Detail Page --- */
+.course-detail-header {
+  background: var(--dark-text);
+  color: var(--white);
+  padding: 5rem 0 4rem 0;
+  text-align: center;
+}
+.course-detail-icon {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+.course-detail-title {
+  font-size: 3.5rem;
+  margin: 0;
+}
+.course-detail-overview {
+  font-size: 1.2rem;
+  color: #DDD;
+  max-width: 800px;
+  margin: 1rem auto 0 auto;
+  line-height: 1.7;
+}
+
+.course-detail-body {
+  display: grid;
+  grid-template-columns: 3fr 1fr; /* Main content and a sidebar */
+  gap: 2.5rem;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+.section-title-small {
+  font-size: 2rem;
+  color: var(--dark-text);
+  margin-bottom: 2rem;
+  border-bottom: 2px solid var(--border-light);
+  padding-bottom: 1rem;
+}
+
+/* --- Pricing Plans --- */
+.pricing-plans-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+.plan-card {
+  border-left: 5px solid var(--primary-orange);
+}
+.plan-card h3 {
+  font-size: 1.5rem;
+  margin-top: 0;
+}
+.plan-price {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-orange);
+  margin-bottom: 1.5rem;
+}
+.plan-details {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.plan-details li {
+  font-size: 1rem;
+  color: var(--body-text);
+  margin-bottom: 0.75rem;
+}
+.plan-details li strong {
+  color: var(--dark-text);
+}
+
+/* --- Curriculum Section --- */
+.curriculum-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.module-card {
+  background: #FAFAFA;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+.module-card h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  color: var(--primary-orange);
+}
+.module-card p {
+  margin: 0;
+  color: var(--body-text);
+}
+
+/* --- Detail Page Sidebar --- */
+.course-detail-sidebar .sidebar-card {
+  position: sticky;
+  top: 100px; /* (Navbar height + 30px margin) */
+  padding: 1.5rem;
+}
+.sidebar-card h3 {
+  font-size: 1.4rem;
+  margin-top: 0;
+}
+.enroll-button {
+  width: 100%;
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
+  padding: 0.8rem 1rem;
+}
+
+/* --- Responsive for Detail Page --- */
+@media (max-width: 900px) {
+  .course-detail-body {
+    grid-template-columns: 1fr; /* Stack content and sidebar */
+  }
+  .pricing-plans-grid {
+    grid-template-columns: 1fr; /* Stack plans */
+  }
+  .course-detail-sidebar .sidebar-card {
+    position: static; /* Unstick the sidebar */
+  }
+  .course-detail-title {
+    font-size: 2.5rem;
+  }
+}
+/* ---
+   5. NEW STYLES FOR 8-POINT LANDING PAGE
+--- */
+
+/* --- Hero Section --- */
+.hero-section {
+  padding: 2rem 2rem; 
+  text-align: center;
+  /* Richer gradient background */
+  background: linear-gradient(145deg, var(--orange-light-bg) 0%, #fff 70%);
+}
+
+.hero-title {
+  font-size: 3.8rem;
+  font-weight: 800;
+  color: var(--dark-text);
+  line-height: 1.2;
+  margin: 0 0 1rem 0;
+  animation: fadeInDown 1s ease-out;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  color: var(--body-text);
+  max-width: 600px;
+  margin: 0 auto 2.5rem auto;
+  animation: fadeInUp 1s ease-out 0.3s;
+  animation-fill-mode: backwards; /* Stay hidden until animation starts */
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  animation: fadeInUp 1s ease-out 0.6s;
+  animation-fill-mode: backwards;
+}
+
+.hero-secondary-button {
+  background: var(--white);
+  color: var(--primary-orange);
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 0.9rem 2.4rem; /* Match CTA button */
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid var(--primary-orange);
+}
+
+.hero-secondary-button:hover {
+  background: var(--orange-light-bg);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Featured Courses Section --- */
+.course-learn-more {
+  margin-top: 1rem;
+  font-weight: 600;
+  color: var(--primary-orange);
+  transition: transform 0.3s ease;
+}
+.course-learn-more span {
+  transition: margin-left 0.3s ease;
+}
+.course-card-link:hover .course-learn-more span {
+  margin-left: 8px;
+}
+
+/* --- Why Choose Us Section --- */
+.why-us-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+.feature-item.card {
+  border: none;
+  background-color: var(--white);
+  text-align: center;
+  padding: 2rem;
+  border-top: 4px solid var(--primary-orange);
+}
+.feature-item.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+.feature-item .feature-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+  background-color: var(--orange-light-bg);
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  border-radius: 50%;
+  color: var(--primary-orange);
+}
+.feature-item h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+/* --- Testimonials Section --- */
+.testimonials-section {
+  padding: 5rem 0;
+  background-color: var(--light-bg);
+}
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+.testimonial-card {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 2.5rem;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+.testimonial-card::before {
+  content: '“';
+  font-family: Georgia, serif;
+  font-size: 6rem;
+  color: var(--primary-orange);
+  opacity: 0.2;
+  position: absolute;
+  top: 1rem;
+  left: 1.5rem;
+}
+.testimonial-quote {
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--body-text);
+  line-height: 1.7;
+  margin: 0 0 1.5rem 0;
+  position: relative;
+  z-index: 2;
+}
+.testimonial-author {
+  font-weight: 700;
+  color: var(--dark-text);
+  font-size: 1rem;
+}
+
+/* --- Call to Action (CTA) Section --- */
+.cta-section {
+  padding: 5rem 2rem;
+  text-align: center;
+  background: linear-gradient(135deg, var(--primary-orange) 0%, #FF512F 100%);
+  color: var(--white);
+}
+.cta-content h2 {
+  font-size: 2.5rem;
+  margin: 0 0 1rem 0;
+}
+.cta-content p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  margin-bottom: 2rem;
+}
+.cta-button {
+  background: var(--white);
+  color: var(--primary-orange);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+.cta-button:hover {
+  background: #FFF;
+  color: var(--primary-orange-dark);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Partners Section --- */
+.partners-section {
+  padding: 4rem 2rem;
+  background: var(--white);
+}
+.partners-section .section-title-small {
+  text-align: center;
+  border: none;
+  color: #AAA;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
+.partner-logos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  filter: grayscale(100%);
+  opacity: 0.6;
+}
+.partner-logo-placeholder {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #999;
+}
+
+/* --- Newsletter Section --- */
+.newsletter-section {
+  padding: 4rem 2rem;
+  background-color: var(--light-bg);
+}
+.newsletter-content {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+.newsletter-content h3 {
+  font-size: 2rem;
+  margin: 0 0 0.5rem 0;
+}
+.newsletter-form {
+  display: flex;
+  margin-top: 2rem;
+  border-radius: 50px;
+  background: var(--white);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
+}
+.newsletter-form input {
+  flex-grow: 1;
+  border: none;
+  background: transparent;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 50px;
+}
+.newsletter-form input:focus {
+  outline: none;
+}
+.newsletter-form button {
+  background: var(--primary-orange);
+  color: var(--white);
+  border: none;
+  padding: 0.8rem 1.8rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.newsletter-form button:hover {
+  background: var(--primary-orange-dark);
+}
+
+/* --- Site Footer --- */
+.site-footer {
+  background: var(--dark-text);
+  color: #AAA;
+  padding-top: 4rem;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 2rem;
+  padding-bottom: 3rem;
+}
+.footer-brand {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--primary-orange);
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+.footer-column-about p {
+  max-width: 300px;
+  line-height: 1.7;
+}
+.footer-column-links h4,
+.footer-column-social h4 {
+  font-size: 1.1rem;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+  margin-top: 0;
+}
+.footer-column-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.footer-column-links li {
+  margin-bottom: 1rem;
+}
+.footer-column-links a {
+  text-decoration: none;
+  color: #AAA;
+  transition: color 0.3s;
+}
+.footer-column-links a:hover {
+  color: var(--primary-orange);
+}
+.social-icons {
+  display: flex;
+  gap: 1rem;
+}
+.social-icons a {
+  color: #AAA;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  background: #444;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+.social-icons a:hover {
+  background: var(--primary-orange);
+  color: var(--white);
+}
+.footer-copyright {
+  text-align: center;
+  border-top: 1px solid #444;
+  padding: 2rem 0;
+}
+.footer-copyright p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* --- Keyframe Animations --- */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Responsiveness for new sections --- */
+@media (max-width: 900px) {
+  .why-us-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .testimonial-grid {
+    grid-template-columns: 1fr;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.8rem;
+  }
+  .hero-buttons {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .why-us-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* ---
+   6. ENHANCED STYLES (Moringa Inspired)
+--- */
+
+/* --- General Enhancements --- */
+.hover-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* --- Hero Section Enhancements --- */
+.hero-section {
+  position: relative; /* For potential pseudo-elements or background images */
+  overflow: hidden; /* Prevent overflow */
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* Stack by default */
+  gap: 3rem;
+  align-items: center;
+  text-align: left; /* Align text left on larger screens */
+}
+@media (min-width: 992px) {
+  .hero-grid {
+    grid-template-columns: 1fr 1fr; /* Two columns on desktop */
+    text-align: left;
+  }
+  .hero-buttons {
+    justify-content: flex-start; /* Align buttons left */
+  }
+}
+.hero-image-placeholder {
+  width: 100%;
+  max-width: 500px; /* Limit image size */
+  height: auto;
+  aspect-ratio: 1 / 1; /* Make it square-ish */
+  background: var(--border-light); /* Placeholder color */
+  border-radius: 16px;
+  margin: 0 auto; /* Center on mobile */
+  display: grid;
+  place-items: center;
+  color: var(--body-text);
+  font-style: italic;
+  font-size: 1.1rem;
+  /* Add animation */
+  opacity: 0;
+  transform: scale(0.9);
+  animation: zoomIn 1s ease-out 0.5s forwards;
+}
+
+@keyframes zoomIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* --- How It Works Section --- */
+.how-it-works-section {
+  padding: 6rem 0;
+  background-color: var(--white); /* White background */
+}
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+.step-card {
+  text-align: center;
+  padding: 2rem;
+  position: relative;
+}
+.step-number {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--primary-orange);
+  color: var(--white);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(255, 122, 26, 0.3);
+}
+.step-card h3 {
+  margin-top: 2.5rem; /* Space below number */
+  font-size: 1.3rem;
+  margin-bottom: 0.75rem;
+}
+.step-card p {
+  font-size: 0.95rem;
+  color: var(--body-text);
+}
+
+/* --- Testimonials Enhancements --- */
+.testimonial-card {
+  background: var(--white); /* White cards */
+  border: 1px solid var(--border-light);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
+.testimonial-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.testimonial-image-placeholder {
+  width: 50px; /* Smaller image */
+  height: 50px;
+  border-radius: 50%;
+  background: var(--border-light);
+  margin-bottom: 0; /* Remove bottom margin */
+  flex-shrink: 0; /* Prevent shrinking */
+}
+.testimonial-author {
+  font-weight: 600;
+  color: var(--dark-text);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+.testimonial-author small {
+  display: block;
+  font-weight: 400;
+  color: var(--body-text);
+  font-size: 0.85rem;
+}
+.testimonial-quote {
+  font-size: 1rem; /* Slightly smaller */
+}
+
+/* --- Minor Adjustments --- */
+.why-us-section {
+  background-color: var(--white); /* Change background */
+}
+
+.partners-section {
+  background: var(--light-bg); /* Change background */
+}
+
+/* --- Responsive adjustments for How it Works --- */
+@media (max-width: 768px) {
+  .steps-grid {
+    grid-template-columns: 1fr; /* Stack steps on mobile */
+  }
+  .step-card {
+     margin-bottom: 2rem; /* Add space between stacked cards */
   }
 }

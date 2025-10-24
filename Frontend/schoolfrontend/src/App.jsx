@@ -1,36 +1,44 @@
-import { Routes, Route, Outlet } from 'react-router-dom'
-import './App.css' // This one file will hold all our component styles
-import Navbar from './components/Navbar' // Import new Navbar
-import Dashboard from './pages/Dashboard'
-import Courses from './pages/Courses'
-import Assignments from './pages/Assignments'
-import Resources from './pages/Resources'
+import { Routes, Route, Outlet } from 'react-router-dom';
+import './App.css';
+
+// --- Public Page Imports ---
+import PublicNavbar from './components/PublicNavbar';
+import LandingPage from './pages/LandingPage';
+import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
+import LoginPage from './pages/LoginPage';
+import SignUpPage from './pages/SignUpPage';
+import AllCoursesPage from './pages/AllCoursePage'; // <-- NEW
+import CourseDetailPage from './pages/CourseDetailPage'; // <-- NEW
+
+
+// Public layout remains the same
+function PublicLayout() {
+  return (
+    <div>
+      <PublicNavbar />
+      <Outlet />
+    </div>
+  );
+}
 
 function App() {
   return (
     <Routes>
-      {/* This <AppLayout /> is our main template */}
-      <Route path="/" element={<AppLayout />}>
-        <Route index element={<Dashboard />} />
-        <Route path="courses" element={<Courses />} />
-        <Route path="assignments" element={<Assignments />} />
-        <Route path="resources" element={<Resources />} />
+      {/* 1. Public Routes */}
+      <Route path="/" element={<PublicLayout />}>
+        <Route index element={<LandingPage />} />
+        <Route path="about" element={<AboutPage />} />
+        <Route path="contact" element={<ContactPage />} />
+        <Route path="login" element={<LoginPage />} />
+        <Route path="signup" element={<SignUpPage />} />
+        <Route path="courses" element={<AllCoursesPage />} /> {/* <-- NEW */}
+        <Route path="courses/:courseSlug" element={<CourseDetailPage />} /> {/* <-- NEW DYNAMIC ROUTE */}
       </Route>
+
+      
     </Routes>
-  )
+  );
 }
 
-// This component now defines the layout with the Navbar on top
-function AppLayout() {
-  return (
-    <div className="app-layout-navbar">
-      <Navbar /> {/* Use Navbar instead of Sidebar */}
-      <main className="main-content">
-        {/* Pages will be rendered here */}
-        <Outlet />
-      </main>
-    </div>
-  )
-}
-
-export default App
+export default App;

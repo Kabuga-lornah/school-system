@@ -3,9 +3,9 @@
   line-height: 1.6;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.9);
-  background-color: #1a1a1a; /* Darker, richer background */
+  color-scheme: light; /* Set to light mode */
+  color: #333333; /* Dark text for readability */
+  background-color: #FFFFFF; /* Clean white background */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -18,15 +18,12 @@ body {
   min-height: 100vh;
 }
 
-/* A modern 'glassmorphism' card style we can use later */
 .card {
-  background: rgba(40, 40, 40, 0.7);
+  background: #ffffff;
   border-radius: 12px;
   padding: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  border: 1px solid #E0E0E0; /* Light gray border */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 button {
@@ -36,37 +33,15 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #535bf2;
+  background-color: #FF7A1A; /* Vibrant Orange */
   color: #ffffff;
   cursor: pointer;
   transition: all 0.25s;
 }
 button:hover {
-  background-color: #646cff;
+  background-color: #E66E18; /* Darker orange on hover */
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(99, 109, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(255, 122, 26, 0.3);
 }
 
-/* Light mode adjustments */
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #f0f2f5; /* Light gray background */
-  }
-
-  .card {
-    background: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
-  }
-
-  button {
-    background-color: #f9f9f9;
-    color: #213547;
-    border: 1px solid #ddd;
-  }
-  button:hover {
-    background-color: #fff;
-    border-color: #646cff;
-  }
-}
+/* Remove the light mode media query, as light is now default */
